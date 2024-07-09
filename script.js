@@ -57,10 +57,6 @@ function updateSavedColumns() {
 
 // Create DOM Elements for each list item
 function createItemEl(columnEl, column, item, index) {
-  // console.log("columnEl:", columnEl);
-  // console.log("column:", column);
-  // console.log("item:", item);
-  // console.log("index:", index);
   // List Item
   const listEl = document.createElement("li");
   listEl.classList.add("drag-item");
@@ -100,6 +96,30 @@ function updateDOM() {
   // Run getSavedColumns only once, Update Local Storage
   updateOnLoad = true;
   updateSavedColumns();
+}
+
+// Add to Column List, Reset Textbox
+function addToColumn(column) {
+  const itemText = addItems[column].textContent;
+  const selectedArray = listArrays[column];
+  selectedArray.push(itemText);
+  addItems[column].textContent = "";
+  updateDOM();
+}
+
+// Show Add Item Input Box
+function showInputBox(column) {
+  addBtns[column].style.visibility = "hidden";
+  saveItemBtns[column].style.display = "flex";
+  addItemContainers[column].style.display = "flex";
+}
+
+// Hide Item Input Box
+function hideInputBox(column) {
+  addBtns[column].style.visibility = "visible";
+  saveItemBtns[column].style.display = "none";
+  addItemContainers[column].style.display = "none";
+  addToColumn(column);
 }
 
 // Allows array to reflect Drag and Drop Items
